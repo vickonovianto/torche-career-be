@@ -1,4 +1,7 @@
 {
   "name": "torche-career-be",
-  "packageManager": "yarn@3.4.1"
+  "packageManager": "yarn@3.4.1",
+  "dependencies": {
+    "dotenv": "^16.0.3"
+  }
 }
