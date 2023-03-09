@@ -25,4 +25,4 @@ function sendSuccessResponse(res, successMessage, data) {
     res.status(200).send(successResponse);
 }
 
-export { sendErrorResponse, sendSuccessResponse };
+module.exports = { sendErrorResponse, sendSuccessResponse };

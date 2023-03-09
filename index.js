@@ -1,8 +1,6 @@
-import dotenv from 'dotenv';
-import runServer from './framework/express/app.js';
-
 // import environment variables from .env file
-dotenv.config();
+require('dotenv').config();
 
 // run server
-runServer();
+const app = require('./framework/express/app.js');
+app.runServer();

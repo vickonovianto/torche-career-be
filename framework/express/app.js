@@ -1,7 +1,7 @@
-import express from 'express';
-import cors from 'cors';
+const express = require('express');
+const cors = require('cors');
 
-import { sendErrorResponse, sendSuccessResponse } from './response.js';
+const responseHelper = require('./response-helper.js');
 
 // check validity of .env file
 function checkEnvFile() {
@@ -17,6 +17,13 @@ function checkEnvFile() {
 }
 
 function runServer() {
+    // handle event when server is terminated
+    const cleanUp = (event) => { // SIGINT is sent for example when you Ctrl+C a running process from the command line.
+        process.exit(); // Exit with default success-code '0'.
+    };
+    process.on('SIGINT', cleanUp);
+    process.on('SIGTERM', cleanUp);
+
     const app = express();
 
     // check validity of the .env file
@@ -42,11 +49,11 @@ function runServer() {
     };
 
     app.use(cors(corsOptions), (err, req, res, next) => {
-        sendErrorResponse(res, 400, 'Not allowed by CORS');
+        responseHelper.sendErrorResponse(res, 400, 'Not allowed by CORS');
     });
 
     app.get('/', (req, res) => {
-        sendSuccessResponse(res, 'Express + TypeScript Server', {});
+        responseHelper.sendSuccessResponse(res, 'Express + TypeScript Server', {});
     });
 
     const port = process.env.PORT;
@@ -55,4 +62,4 @@ function runServer() {
     });
 }
 
-export default runServer;
+module.exports = { runServer };
