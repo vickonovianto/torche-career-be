@@ -1,4 +1,4 @@
-import express, { Express, Request, Response } from 'express';
+import express from 'express';
 import cors from 'cors';
 
 // check validity of .env file
@@ -15,13 +15,13 @@ function checkEnvFile() {
 }
 
 function runServer() {
-    const app: Express = express();
+    const app = express();
 
     // check validity of the .env file
     checkEnvFile();
 
     // set up cors middleware
-    const options: cors.CorsOptions = {
+    const corsOptions = {
         origin: function(origin, callback) {
             if (process.env.NODE_ENV === "development") {
                 if (origin === process.env.WHITELISTED_DOMAIN || !origin) {
@@ -38,9 +38,18 @@ function runServer() {
             }
         }
     };
-    app.use(cors(options));
 
-    app.get('/', (req: Request, res: Response) => {
+    app.use(cors(corsOptions), (err, req, res, next) => {
+        res.status(400).send('Something broke!');
+    });
+
+    // custom error handler
+    // app.use((err, req, res, next) => {
+    //     res.status(400).send('Something broke 2!');
+    // });
+   
+
+    app.get('/', (req, res) => {
         res.send('Express + TypeScript Server');
     });
 
