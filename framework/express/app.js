@@ -1,6 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 
+import { sendErrorResponse, sendSuccessResponse } from './response.js';
+
 // check validity of .env file
 function checkEnvFile() {
     if (process.env.PORT === '') {
@@ -40,17 +42,11 @@ function runServer() {
     };
 
     app.use(cors(corsOptions), (err, req, res, next) => {
-        res.status(400).send('Something broke!');
+        sendErrorResponse(res, 400, 'Not allowed by CORS');
     });
 
-    // custom error handler
-    // app.use((err, req, res, next) => {
-    //     res.status(400).send('Something broke 2!');
-    // });
-   
-
     app.get('/', (req, res) => {
-        res.send('Express + TypeScript Server');
+        sendSuccessResponse(res, 'Express + TypeScript Server', {});
     });
 
     const port = process.env.PORT;
