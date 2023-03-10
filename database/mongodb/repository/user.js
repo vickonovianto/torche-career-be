@@ -1,12 +1,12 @@
 const dbUtil = require('../db-util.js');
-const userModel = require('.././model/user.js');
+const User = require('.././model/user.js');
 
 async function createUser(user) {
     try {
-        const userCollection = dbUtil.getCollection(userModel.collectionName);
+        const userCollection = dbUtil.getCollection(User.collectionName);
         return await userCollection.insertOne(user);
     } catch (e) {
-        throw new Error(`Unable to create user: ${e}`);
+        throw e;
     }
 }
 

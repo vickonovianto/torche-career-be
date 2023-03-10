@@ -1,7 +1,7 @@
 class ErrorResponse {
-    constructor(errorCode, errorMessage) {
+    constructor(errorCode, errorMessages) {
         this.success = false;
-        this.message = errorMessage;
+        this.messages = errorMessages;
         this.error_code = errorCode;
         this.data = {};
     }
@@ -15,8 +15,8 @@ class SuccessResponse {
     }
 }
 
-function sendErrorResponse(res, errorCode, errorMessage) {
-    const errorResponse = new ErrorResponse(errorCode, errorMessage);
+function sendErrorResponse(res, errorCode, errorMessages) {
+    const errorResponse = new ErrorResponse(errorCode, errorMessages);
     res.status(errorCode).send(errorResponse);
 }
 

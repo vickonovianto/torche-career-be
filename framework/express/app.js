@@ -61,7 +61,7 @@ function runServer() {
     };
 
     app.use(cors(corsOptions), (err, req, res, next) => {
-        responseHelper.sendErrorResponse(res, 400, 'Not allowed by CORS');
+        responseHelper.sendErrorResponse(res, 400, ['Not allowed by CORS']);
     });
 
     app.use(express.json());
@@ -76,7 +76,7 @@ function runServer() {
     app.use(`${process.env.API_PREFIX}/users`, userController);
 
     app.use("*", (req,res) => {
-        responseHelper.sendErrorResponse(res, 404, 'Not Found');
+        responseHelper.sendErrorResponse(res, 404, ['Not Found']);
     });
 
     const port = process.env.PORT;
