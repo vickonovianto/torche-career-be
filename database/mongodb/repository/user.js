@@ -4,16 +4,19 @@ const User = require('.././model/user.js');
 async function createUser(user) {
     try {
         const userCollection = dbUtil.getCollection(User.collectionName);
-
-        const userWithSameEmail = await userCollection.findOne({ email: user.email });
-        if (!userWithSameEmail) {
-            return await userCollection.insertOne(user);
-        } else {
-            throw new Error('email already exists');
-        }
+        return await userCollection.insertOne(user);
     } catch (e) {
         throw e;
     }
 }
 
-module.exports = { createUser };
+async function getUserByEmail(email) {
+    try {
+        const userCollection = dbUtil.getCollection(User.collectionName);
+        return await userCollection.findOne({ email: email });
+    } catch (e) {
+        throw e;
+    }
+}
+
+module.exports = { createUser, getUserByEmail };
