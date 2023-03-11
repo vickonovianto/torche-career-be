@@ -4,6 +4,7 @@ const { checkSchema, validationResult } = require('express-validator');
 const User = require('../../../database/mongodb/model/user.js');
 const userUsecase = require('../../../usecase/user.js');
 const responseHelper = require('../response-helper.js');
+const shallowCopier = require('../../../util/shallow-copier.js');
 
 async function validateUser(req,res,next) {
     const errors = validationResult(req);
@@ -21,10 +22,12 @@ async function validateUser(req,res,next) {
 }
 
 async function createUser(req,res,next) {
-    const email = req.body.email;
     try {
-        const createUserResult = await userUsecase.createUser({ email: email });
-        responseHelper.sendSuccessResponse(res, "Create User Successful", createUserResult);
+        // const createUserResult = await userUsecase.createUser({ email: email });
+        // responseHelper.sendSuccessResponse(res, "Create User Successful", createUserResult);
+        const user = shallowCopier.filterProperties(req.body, User.properties);
+        console.log(user);
+        responseHelper.sendSuccessResponse(res, "Create User Successful", user);
     } catch (e) {
         console.error(e.message);
         responseHelper.sendErrorResponse(res, 400, [`Unable to create user: ${e}`]);   

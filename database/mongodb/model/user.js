@@ -1,11 +1,20 @@
 class User {
     static #collectionName = "users";
+    static #properties = [
+        'email',
+        'password',
+        'passwordRepeat',
+    ];
 
     // validation using "express-validator" npm package
     static #validationSchema = {
         email: {
+            in: ['body'],
             exists: {
                 errorMessage: 'Email field must exist',
+            },
+            isString: {
+                errorMessage: 'Email field must be string',
             },
             trim: true,
             isEmail: {
@@ -20,8 +29,12 @@ class User {
             },
         },
         password: {
+            in: ['body'],
             exists: {
                 errorMessage: 'Password field must exist',
+            },
+            isString: {
+                errorMessage: 'Password field must be string',
             },
             trim: true,
             isLength: {
@@ -33,8 +46,12 @@ class User {
             },
         },
         passwordRepeat: {
+            in: ['body'],
             exists: {
                 errorMessage: 'Password repeat field must exist',
+            },
+            isString: {
+                errorMessage: 'Password field must be string',
             },
             trim: true,
             isLength: {
@@ -51,6 +68,10 @@ class User {
 
     static get collectionName() {
         return this.#collectionName;
+    }
+
+    static get properties() {
+        return this.#properties;
     }
 
     static get validationSchema() {
