@@ -1,6 +1,7 @@
 class User {
     static #collectionName = "users";
 
+    // validation using "express-validator" npm package
     static #validationSchema = {
         email: {
             exists: {
