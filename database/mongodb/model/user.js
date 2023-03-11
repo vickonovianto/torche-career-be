@@ -1,66 +1,48 @@
+const validation = require('./validation.js');
+
 class User {
     static #collectionName = "users";
+
     static #properties = [
         'email',
         'password',
     ];
 
     // validation using "express-validator" npm package
-    static #validationSchema = {
-        email: {
-            in: ['body'],
-            exists: {
-                errorMessage: 'Email field must exist',
-            },
-            isString: {
-                errorMessage: 'Email field must be string',
-            },
-            trim: true,
-            isEmail: {
-                errorMessage: 'Invalid email format',
-            },
-            normalizeEmail: true,
-            isLength: {
-                options: {
-                    max: 50,
-                },
-                errorMessage: 'Email contains maximum 50 characters',
-            },
+
+    static #emailValidation =  {
+        ...validation.bodyStringInput,
+        isEmail: {
+            errorMessage: 'invalid format',
         },
-        password: {
-            in: ['body'],
-            exists: {
-                errorMessage: 'Password field must exist',
+        normalizeEmail: true,
+        isLength: {
+            options: {
+                max: 50,
             },
-            isString: {
-                errorMessage: 'Password field must be string',
-            },
-            trim: true,
-            isLength: {
-                options: {
-                    min: 8,
-                    max: 50,
-                },
-                errorMessage: 'Password contains minimum 8 characters and maximum 50 characters',
-            },
+            errorMessage: 'maximum 50 characters',
         },
-        passwordRepeat: {
-            in: ['body'],
-            exists: {
-                errorMessage: 'Password repeat field must exist',
+    };
+
+    static #passwordValidation = {
+        ...validation.bodyStringInput,
+        isLength: {
+            options: {
+                min: 8,
+                max: 50,
             },
-            isString: {
-                errorMessage: 'Password field must be string',
-            },
-            trim: true,
-            isLength: {
-                options: {
-                    min: 8,
-                    max: 50,
-                },
-                errorMessage: 'Password repeat contains minimum 8 characters and maximum 50 characters',
-            },
+            errorMessage: 'minimum 8 characters and maximum 50 characters',
         },
+    };
+
+    static #passwordRepeatValidation = {
+        ...this.#passwordValidation,
+    };
+
+    static #registerValidation = {
+        email: this.#emailValidation,
+        password: this.#passwordValidation,
+        passwordRepeat: this.#passwordRepeatValidation,
     };
 
     constructor() {}
@@ -73,8 +55,8 @@ class User {
         return this.#properties;
     }
 
-    static get validationSchema() {
-        return this.#validationSchema;
+    static get registerValidation() {
+        return this.#registerValidation;
     }
 }
 

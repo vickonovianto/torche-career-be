@@ -1,7 +1,7 @@
 const dbUtil = require('../db-util.js');
 const User = require('.././model/user.js');
 
-async function createUser(user) {
+async function create(user) {
     try {
         const userCollection = dbUtil.getCollection(User.collectionName);
         return await userCollection.insertOne(user);
@@ -10,7 +10,7 @@ async function createUser(user) {
     }
 }
 
-async function getUserByEmail(email) {
+async function getByEmail(email) {
     try {
         const userCollection = dbUtil.getCollection(User.collectionName);
         return await userCollection.findOne({ email: email });
@@ -19,4 +19,4 @@ async function getUserByEmail(email) {
     }
 }
 
-module.exports = { createUser, getUserByEmail };
+module.exports = { create, getByEmail };
