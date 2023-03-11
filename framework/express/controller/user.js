@@ -23,11 +23,9 @@ async function validateUser(req,res,next) {
 
 async function createUser(req,res,next) {
     try {
-        // const createUserResult = await userUsecase.createUser({ email: email });
-        // responseHelper.sendSuccessResponse(res, "Create User Successful", createUserResult);
         const user = shallowCopier.filterProperties(req.body, User.properties);
-        console.log(user);
-        responseHelper.sendSuccessResponse(res, "Create User Successful", user);
+        const createUserResult = await userUsecase.createUser(user);
+        responseHelper.sendSuccessResponse(res, "Create User Successful", createUserResult);
     } catch (e) {
         console.error(e.message);
         responseHelper.sendErrorResponse(res, 400, [`Unable to create user: ${e}`]);   

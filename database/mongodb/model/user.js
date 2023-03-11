@@ -3,7 +3,6 @@ class User {
     static #properties = [
         'email',
         'password',
-        'passwordRepeat',
     ];
 
     // validation using "express-validator" npm package
