@@ -35,8 +35,8 @@ function checkEnvFile() {
             throw new Error('File .env: COOKIE_MAX_AGE must be positive integer > 0');
         }
     }
-    if (process.env.COOKIE_SECRET === '') {
-        throw new Error('File .env: COOKIE_SECRET cannot be empty');
+    if (process.env.SECRET === '') {
+        throw new Error('File .env: SECRET cannot be empty');
     }
 }
 
@@ -105,7 +105,7 @@ function runServer() {
     }
     const dbClient = dbUtil.getClient();
     app.use(session({
-        secret: process.env.COOKIE_SECRET,
+        secret: process.env.SECRET,
         cookie: cookieSettings,
         resave: false,
         saveUninitialized: true,
