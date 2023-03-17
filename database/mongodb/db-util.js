@@ -15,10 +15,12 @@ const connectDB = () => {
     });
 };
 
+const getClient = () => _client;
+
 const getDB = () => _db;
 
 const getCollection = (collectionName) => _db.collection(String(collectionName));
 
 const disconnectDB = () => _client.close();
 
-module.exports = { connectDB, getDB, getCollection, disconnectDB };
+module.exports = { connectDB, getClient, getDB, getCollection, disconnectDB };

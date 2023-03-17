@@ -1,5 +1,7 @@
 const express = require('express');
 const cors = require('cors');
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
 
 const responseHelper = require('./response-helper.js');
 const dbUtil = require('../.././database/mongodb/db-util.js');
@@ -24,6 +26,17 @@ function checkEnvFile() {
     }
     if (process.env.DB_NAME === '') {
         throw new Error('File .env: DB_NAME cannot be empty');
+    }
+    if (process.env.COOKIE_MAX_AGE === '') {
+        throw new Error('File .env: COOKIE_MAX_AGE cannot be empty');
+    } else {
+        const maxAge = parseInt(process.env.COOKIE_MAX_AGE);
+        if (Number.isNaN(maxAge) || maxAge <= 0) {
+            throw new Error('File .env: COOKIE_MAX_AGE must be positive integer > 0');
+        }
+    }
+    if (process.env.COOKIE_SECRET === '') {
+        throw new Error('File .env: COOKIE_SECRET cannot be empty');
     }
 }
 
@@ -57,8 +70,12 @@ function runServer() {
                     callback(new Error('Not allowed by CORS'));
                 }
             }
-        }
+        },
+        credentials: true,
     };
+
+    // connect to db
+    dbUtil.connectDB();
 
     app.use(cors(corsOptions), (err, req, res, next) => {
         responseHelper.sendErrorResponse(res, 400, ['Not allowed by CORS']);
@@ -66,8 +83,37 @@ function runServer() {
 
     app.use(express.json());
 
-    // connect to db
-    dbUtil.connectDB();
+    // Use the session middleware
+    let cookieSettings;
+    if (process.env.NODE_ENV === 'development') {
+        cookieSettings = {
+            domain: process.env.HOST,
+            httpOnly: true,
+            signed: true,
+            maxAge: parseInt(process.env.COOKIE_MAX_AGE),
+            sameSite: 'lax',
+        };
+    } else if (process.env.NODE_ENV === 'production') {
+        cookieSettings = {
+            domain: process.env.HOST,
+            httpOnly: true,
+            secure: true,
+            signed: true,
+            maxAge: parseInt(process.env.COOKIE_MAX_AGE),
+            sameSite: 'strict',
+        };
+    }
+    const dbClient = dbUtil.getClient();
+    app.use(session({
+        secret: process.env.COOKIE_SECRET,
+        cookie: cookieSettings,
+        resave: false,
+        saveUninitialized: true,
+        store: MongoStore.create({
+            mongoUrl: process.env.MONGODB_URI,
+            dbName: process.env.DB_NAME,
+        }),
+    }));
 
     app.get('/', (req, res) => {
         responseHelper.sendSuccessResponse(res, 'Express + TypeScript Server', {});

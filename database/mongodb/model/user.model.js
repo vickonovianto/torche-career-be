@@ -45,6 +45,11 @@ class User {
         passwordRepeat: this.#passwordRepeatValidation,
     };
 
+    static #loginValidation = {
+        email: this.#emailValidation,
+        password: this.#passwordValidation,
+    };
+
     constructor() {}
 
     static get collectionName() {
@@ -57,6 +62,10 @@ class User {
 
     static get registerValidation() {
         return this.#registerValidation;
+    }
+
+    static get loginValidation() {
+        return this.#loginValidation;
     }
 }
 

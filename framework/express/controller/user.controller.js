@@ -38,8 +38,36 @@ const registerMiddlewares = [
     registerUser
 ];
 
+async function validateLoginRequest(req,res,next) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        responseHelper.sendErrorResponse(res, 400, errors.array());
+    } else {
+        next();
+    }
+}
+
+async function loginUser(req,res,next) {
+    try {
+        const user = shallowCopier.filterProperties(req.body, User.properties);
+        const loginUserResult = await userUsecase.loginUser(user);
+        req.session.userid = loginUserResult._id;
+        responseHelper.sendSuccessResponse(res, "Login User Successful", {});
+    } catch (e) {
+        console.error(e.message);
+        responseHelper.sendErrorResponse(res, 400, [`Unable to login user: ${e}`]);   
+    }
+}
+
+const loginMiddlewares = [
+    checkSchema(User.loginValidation),
+    validateLoginRequest,
+    loginUser
+];
+
 const router = express.Router();
 
 router.route('/register').post(...registerMiddlewares);
+router.route('/login').post(...loginMiddlewares);
 
 module.exports = router;

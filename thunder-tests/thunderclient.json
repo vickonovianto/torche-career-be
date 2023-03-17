@@ -17,5 +17,24 @@
       "form": []
     },
     "tests": []
+  },
+  {
+    "_id": "1cda156e-c389-4e75-8162-f99c2f815b7d",
+    "colId": "16782e4b-1747-48a5-9234-a955c8450c7d",
+    "containerId": "8f680de3-6d8b-414c-a6e3-2361e512d728",
+    "name": "Login",
+    "url": "http://{{HOST}}:{{PORT}}{{API_PREFIX}}/users/login",
+    "method": "POST",
+    "sortNum": 20000,
+    "created": "2023-03-17T17:19:17.301Z",
+    "modified": "2023-03-17T17:27:04.860Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"email\": \"test@gmail.com\",\n  \"password\": \"12345678\"\n}",
+      "form": []
+    },
+    "tests": []
   }
 ]

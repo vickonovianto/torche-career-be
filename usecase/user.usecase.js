@@ -17,4 +17,22 @@ async function registerUser(user) {
     }
 }
 
-module.exports = { registerUser };
+async function loginUser(user) {
+    try {
+        const userFromDB = await userRepository.getByEmail(user.email);
+        if (!userFromDB) {
+            throw new Error('email or password is invalid');
+        } else {
+            const passwordSame = await argon2.verify(userFromDB.password.toString(), user.password);
+            if (passwordSame) {
+                return userFromDB;
+            } else {
+                throw new Error('email or password is invalid');
+            }
+        }
+    } catch (e) {
+        throw e;
+    }
+}
+
+module.exports = { registerUser, loginUser };
