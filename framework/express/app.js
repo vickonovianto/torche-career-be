@@ -3,7 +3,7 @@ const cors = require('cors');
 
 const responseHelper = require('./response-helper.js');
 const dbUtil = require('../.././database/mongodb/db-util.js');
-const userController = require('./controller/user.js');
+const userController = require('./controller/user.controller.js');
 
 // check validity of .env file
 function checkEnvFile() {

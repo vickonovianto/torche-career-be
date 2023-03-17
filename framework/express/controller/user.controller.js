@@ -1,8 +1,8 @@
 const express = require('express');
 const { checkSchema, validationResult } = require('express-validator');
 
-const User = require('../../../database/mongodb/model/user.js');
-const userUsecase = require('../../../usecase/user.js');
+const User = require('../../../database/mongodb/model/user.model.js');
+const userUsecase = require('../../../usecase/user.usecase.js');
 const responseHelper = require('../response-helper.js');
 const shallowCopier = require('../../../util/shallow-copier.js');
 

@@ -1,5 +1,5 @@
 const dbUtil = require('../db-util.js');
-const User = require('.././model/user.js');
+const User = require('.././model/user.model.js');
 
 async function create(user) {
     try {

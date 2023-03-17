@@ -1,6 +1,6 @@
 const argon2 = require('argon2');
 
-const userRepository = require('../database/mongodb/repository/user.js');
+const userRepository = require('../database/mongodb/repository/user.repository.js');
 
 async function registerUser(user) {
     try {
