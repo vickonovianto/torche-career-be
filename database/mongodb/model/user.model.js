@@ -3,9 +3,13 @@ const validation = require('./validation.js');
 class User {
     static #collectionName = "users";
 
-    static #properties = [
+    static #inputProperties = [
         'email',
         'password',
+    ];
+
+    static #outputProperties = [
+        'email',
     ];
 
     // validation using "express-validator" npm package
@@ -39,6 +43,10 @@ class User {
         ...this.#passwordValidation,
     };
 
+    static #idValidation = {
+        ...validation.paramStringInput,
+    };
+
     static #registerValidation = {
         email: this.#emailValidation,
         password: this.#passwordValidation,
@@ -56,8 +64,12 @@ class User {
         return this.#collectionName;
     }
 
-    static get properties() {
-        return this.#properties;
+    static get inputProperties() {
+        return this.#inputProperties;
+    }
+
+    static get outputProperties() {
+        return this.#outputProperties;
     }
 
     static get registerValidation() {
@@ -66,6 +78,10 @@ class User {
 
     static get loginValidation() {
         return this.#loginValidation;
+    }
+
+    static get idValidation() {
+        return this.#idValidation;
     }
 }
 

@@ -19,4 +19,14 @@ async function getByEmail(email) {
     }
 }
 
-module.exports = { create, getByEmail };
+async function getById(id) {
+    try {
+        const userCollection = dbUtil.getCollection(User.collectionName);
+        const ObjectId = dbUtil.getObjectId();
+        return await userCollection.findOne({ _id: new ObjectId(id) });
+    } catch (e) {
+        throw e;
+    }
+}
+
+module.exports = { create, getByEmail, getById };

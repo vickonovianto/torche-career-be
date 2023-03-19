@@ -27,7 +27,7 @@
     "method": "POST",
     "sortNum": 20000,
     "created": "2023-03-17T17:19:17.301Z",
-    "modified": "2023-03-17T17:27:04.860Z",
+    "modified": "2023-03-19T18:02:10.594Z",
     "headers": [],
     "params": [],
     "body": {
@@ -35,6 +35,34 @@
       "raw": "{\n  \"email\": \"test@gmail.com\",\n  \"password\": \"12345678\"\n}",
       "form": []
     },
+    "tests": []
+  },
+  {
+    "_id": "972bfae3-e09c-4a32-b83f-60910a49b632",
+    "colId": "16782e4b-1747-48a5-9234-a955c8450c7d",
+    "containerId": "8f680de3-6d8b-414c-a6e3-2361e512d728",
+    "name": "Logout",
+    "url": "http://{{HOST}}:{{PORT}}{{API_PREFIX}}/users/logout",
+    "method": "POST",
+    "sortNum": 30000,
+    "created": "2023-03-19T18:01:15.766Z",
+    "modified": "2023-03-19T18:01:41.162Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "1083fdb8-e464-49e9-8ddc-d732c18f9071",
+    "colId": "16782e4b-1747-48a5-9234-a955c8450c7d",
+    "containerId": "8f680de3-6d8b-414c-a6e3-2361e512d728",
+    "name": "Get Profile",
+    "url": "http://{{HOST}}:{{PORT}}{{API_PREFIX}}/users/profile",
+    "method": "GET",
+    "sortNum": 40000,
+    "created": "2023-03-19T18:02:17.524Z",
+    "modified": "2023-03-19T18:02:24.904Z",
+    "headers": [],
+    "params": [],
     "tests": []
   }
 ]

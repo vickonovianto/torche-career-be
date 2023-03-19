@@ -1,4 +1,4 @@
-const { MongoClient } = require('mongodb');
+const { MongoClient, ObjectId } = require('mongodb');
 
 let _client;
 let _db;
@@ -15,6 +15,8 @@ const connectDB = () => {
     });
 };
 
+const getObjectId = () => ObjectId;
+
 const getClient = () => _client;
 
 const getDB = () => _db;
@@ -23,4 +25,4 @@ const getCollection = (collectionName) => _db.collection(String(collectionName))
 
 const disconnectDB = () => _client.close();
 
-module.exports = { connectDB, getClient, getDB, getCollection, disconnectDB };
+module.exports = { getObjectId, connectDB, getClient, getDB, getCollection, disconnectDB };

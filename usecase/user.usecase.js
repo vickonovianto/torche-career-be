@@ -35,4 +35,13 @@ async function loginUser(user) {
     }
 }
 
-module.exports = { registerUser, loginUser };
+async function getUserById(id) {
+    try {
+        const userFromDB = await userRepository.getById(id);
+        return userFromDB;
+    } catch (e) {
+        throw e;
+    }
+}
+
+module.exports = { registerUser, loginUser, getUserById };

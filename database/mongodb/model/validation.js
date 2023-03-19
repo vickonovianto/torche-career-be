@@ -1,3 +1,7 @@
+const paramInput = {
+    in: ['params'],
+};
+
 const bodyInput = {
     in: ['body'],
 };
@@ -12,9 +16,14 @@ const stringInput = {
     trim: true,
 };
 
+const paramStringInput = {
+    ...paramInput,
+    ...stringInput,
+};
+
 const bodyStringInput = {
     ...bodyInput,
     ...stringInput,
 };
 
-module.exports = { bodyInput, stringInput, bodyStringInput };
+module.exports = { paramInput, bodyInput, stringInput, bodyStringInput, paramStringInput };

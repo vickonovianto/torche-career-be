@@ -23,7 +23,7 @@ async function validateRegisterRequest(req,res,next) {
 
 async function registerUser(req,res,next) {
     try {
-        const user = shallowCopier.filterProperties(req.body, User.properties);
+        const user = shallowCopier.filterProperties(req.body, User.inputProperties);
         const createUserResult = await userUsecase.registerUser(user);
         responseHelper.sendSuccessResponse(res, "Create User Successful", createUserResult);
     } catch (e) {
@@ -49,7 +49,7 @@ async function validateLoginRequest(req,res,next) {
 
 async function loginUser(req,res,next) {
     try {
-        const user = shallowCopier.filterProperties(req.body, User.properties);
+        const user = shallowCopier.filterProperties(req.body, User.inputProperties);
         const loginUserResult = await userUsecase.loginUser(user);
         req.session.userid = loginUserResult._id;
         responseHelper.sendSuccessResponse(res, "Login User Successful", {});
@@ -65,9 +65,57 @@ const loginMiddlewares = [
     loginUser
 ];
 
+async function logoutUser(req,res,next) {
+    try {
+        if (req.session.userid) {
+            req.session.destroy();
+        } 
+        res.redirect('/');
+    } catch (e) {
+        console.error(e.message);
+        responseHelper.sendErrorResponse(res, 400, [`Unable to logout user: ${e}`]);   
+    }
+}
+
+const logoutMiddlewares = [
+    logoutUser
+];
+
+async function validateGetByIdRequest(req,res,next) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        responseHelper.sendErrorResponse(res, 400, errors.array());
+    } else {
+        next();
+    }
+}
+
+async function getMyProfile(req,res,next) {
+    try {
+        if (req.session.userid) {
+            const userResult = await userUsecase.getUserById(req.session.userid);
+            const user = shallowCopier.filterProperties(userResult, User.outputProperties);
+            responseHelper.sendSuccessResponse(res, "Get My Profile Successful", user);
+        } else {
+            responseHelper.sendErrorResponse(res, 400, [`Unable to get my profile: ${e}`]); 
+        }
+    } catch (e) {
+        console.error(e.message);
+        responseHelper.sendErrorResponse(res, 400, [`Unable to login user: ${e}`]);   
+    }
+}
+
+const getByIdMiddlewares = [
+    checkSchema(User.idValidation),
+    validateGetByIdRequest,
+    getMyProfile
+];
+
 const router = express.Router();
 
 router.route('/register').post(...registerMiddlewares);
 router.route('/login').post(...loginMiddlewares);
+router.route('/logout').post(...logoutMiddlewares);
+router.route('/profile').get(...getByIdMiddlewares);
 
 module.exports = router;

@@ -115,10 +115,6 @@ function runServer() {
         }),
     }));
 
-    app.get('/', (req, res) => {
-        responseHelper.sendSuccessResponse(res, 'Express + TypeScript Server', {});
-    });
-
     app.use(`${process.env.API_PREFIX}/users`, userController);
 
     app.use("*", (req,res) => {
