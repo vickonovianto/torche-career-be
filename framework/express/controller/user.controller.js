@@ -49,10 +49,14 @@ async function validateLoginRequest(req,res,next) {
 
 async function loginUser(req,res,next) {
     try {
-        const user = shallowCopier.filterProperties(req.body, User.inputProperties);
-        const loginUserResult = await userUsecase.loginUser(user);
-        req.session.userid = loginUserResult._id;
-        responseHelper.sendSuccessResponse(res, "Login User Successful", {});
+        if (!req.session.userid) {
+            const user = shallowCopier.filterProperties(req.body, User.inputProperties);
+            const loginUserResult = await userUsecase.loginUser(user);
+            req.session.userid = loginUserResult._id;
+            responseHelper.sendSuccessResponse(res, "Login User Successful", {});
+        } else {
+            responseHelper.sendErrorResponse(res, 400, [`Unable to login user: User already logged in`]); 
+        }
     } catch (e) {
         console.error(e.message);
         responseHelper.sendErrorResponse(res, 400, [`Unable to login user: ${e}`]);   
@@ -81,33 +85,22 @@ const logoutMiddlewares = [
     logoutUser
 ];
 
-async function validateGetByIdRequest(req,res,next) {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        responseHelper.sendErrorResponse(res, 400, errors.array());
-    } else {
-        next();
-    }
-}
-
 async function getMyProfile(req,res,next) {
     try {
         if (req.session.userid) {
             const userResult = await userUsecase.getUserById(req.session.userid);
             const user = shallowCopier.filterProperties(userResult, User.outputProperties);
-            responseHelper.sendSuccessResponse(res, "Get My Profile Successful", user);
+            responseHelper.sendSuccessResponse(res, "Get Profile Successful", user);
         } else {
-            responseHelper.sendErrorResponse(res, 400, [`Unable to get my profile: ${e}`]); 
+            responseHelper.sendErrorResponse(res, 401, [`Unable to get profile: User must be logged in`]); 
         }
     } catch (e) {
         console.error(e.message);
-        responseHelper.sendErrorResponse(res, 400, [`Unable to login user: ${e}`]);   
+        responseHelper.sendErrorResponse(res, 400, [`Unable to get profile: ${e}`]);   
     }
 }
 
-const getByIdMiddlewares = [
-    checkSchema(User.idValidation),
-    validateGetByIdRequest,
+const getMyProfileMiddlewares = [
     getMyProfile
 ];
 
@@ -116,6 +109,6 @@ const router = express.Router();
 router.route('/register').post(...registerMiddlewares);
 router.route('/login').post(...loginMiddlewares);
 router.route('/logout').post(...logoutMiddlewares);
-router.route('/profile').get(...getByIdMiddlewares);
+router.route('/profile').get(...getMyProfileMiddlewares);
 
 module.exports = router;

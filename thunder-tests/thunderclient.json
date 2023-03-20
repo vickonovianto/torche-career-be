@@ -3,7 +3,7 @@
     "_id": "335543aa-13d9-4631-9673-fab88d8a2390",
     "colId": "16782e4b-1747-48a5-9234-a955c8450c7d",
     "containerId": "8f680de3-6d8b-414c-a6e3-2361e512d728",
-    "name": "Create",
+    "name": "Register",
     "url": "http://{{HOST}}:{{PORT}}{{API_PREFIX}}/users/register",
     "method": "POST",
     "sortNum": 10000,

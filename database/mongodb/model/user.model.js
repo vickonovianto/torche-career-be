@@ -43,10 +43,6 @@ class User {
         ...this.#passwordValidation,
     };
 
-    static #idValidation = {
-        ...validation.paramStringInput,
-    };
-
     static #registerValidation = {
         email: this.#emailValidation,
         password: this.#passwordValidation,
@@ -78,10 +74,6 @@ class User {
 
     static get loginValidation() {
         return this.#loginValidation;
-    }
-
-    static get idValidation() {
-        return this.#idValidation;
     }
 }
 
