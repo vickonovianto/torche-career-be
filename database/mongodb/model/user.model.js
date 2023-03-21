@@ -3,16 +3,33 @@ const validation = require('./validation.js');
 class User {
     static #collectionName = "users";
 
-    static #inputProperties = [
+    static #loginInput = [
         'email',
         'password',
     ];
 
-    static #outputProperties = [
+    static #registerInput = [
+        'fullName',
+        'email',
+        'password',
+    ];
+
+    static #profileOutput = [
         'email',
     ];
 
     // validation using "express-validator" npm package
+
+    static #fullNameValidation =  {
+        ...validation.bodyStringInput,
+        isLength: {
+            options: {
+                min: 1,
+                max: 50,
+            },
+            errorMessage: 'minimum 1 character and maximum 50 characters',
+        },
+    };
 
     static #emailValidation =  {
         ...validation.bodyStringInput,
@@ -30,12 +47,14 @@ class User {
 
     static #passwordValidation = {
         ...validation.bodyStringInput,
+        isStrongPassword: {
+            errorMessage: 'minimum 8 characters, with 1 uppercase, 1 lowercase, 1 number, and 1 symbol',
+        },
         isLength: {
             options: {
-                min: 8,
                 max: 50,
             },
-            errorMessage: 'minimum 8 characters and maximum 50 characters',
+            errorMessage: 'maximum 50 characters',
         },
     };
 
@@ -44,6 +63,7 @@ class User {
     };
 
     static #registerValidation = {
+        fullName: this.#fullNameValidation,
         email: this.#emailValidation,
         password: this.#passwordValidation,
         passwordRepeat: this.#passwordRepeatValidation,
@@ -60,12 +80,16 @@ class User {
         return this.#collectionName;
     }
 
-    static get inputProperties() {
-        return this.#inputProperties;
+    static get registerInput() {
+        return this.#registerInput;
     }
 
-    static get outputProperties() {
-        return this.#outputProperties;
+    static get loginInput() {
+        return this.#loginInput;
+    }
+
+    static get profileOutput() {
+        return this.#profileOutput;
     }
 
     static get registerValidation() {

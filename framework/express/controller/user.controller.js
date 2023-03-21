@@ -23,9 +23,9 @@ async function validateRegisterRequest(req,res,next) {
 
 async function registerUser(req,res,next) {
     try {
-        const user = shallowCopier.filterProperties(req.body, User.inputProperties);
-        const createUserResult = await userUsecase.registerUser(user);
-        responseHelper.sendSuccessResponse(res, "Create User Successful", createUserResult);
+        const user = shallowCopier.filterProperties(req.body, User.registerInput);
+        await userUsecase.registerUser(user);
+        responseHelper.sendSuccessResponse(res, "Create User Successful", {});
     } catch (e) {
         console.error(e.message);
         responseHelper.sendErrorResponse(res, 400, [`Unable to create user: ${e}`]);   
@@ -50,7 +50,7 @@ async function validateLoginRequest(req,res,next) {
 async function loginUser(req,res,next) {
     try {
         if (!req.session.userid) {
-            const user = shallowCopier.filterProperties(req.body, User.inputProperties);
+            const user = shallowCopier.filterProperties(req.body, User.loginInput);
             const loginUserResult = await userUsecase.loginUser(user);
             req.session.userid = loginUserResult._id;
             responseHelper.sendSuccessResponse(res, "Login User Successful", {});
@@ -89,7 +89,7 @@ async function getMyProfile(req,res,next) {
     try {
         if (req.session.userid) {
             const userResult = await userUsecase.getUserById(req.session.userid);
-            const user = shallowCopier.filterProperties(userResult, User.outputProperties);
+            const user = shallowCopier.filterProperties(userResult, User.profileOutput);
             responseHelper.sendSuccessResponse(res, "Get Profile Successful", user);
         } else {
             responseHelper.sendErrorResponse(res, 401, [`Unable to get profile: User must be logged in`]); 
