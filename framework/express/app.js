@@ -6,6 +6,7 @@ const MongoStore = require('connect-mongo');
 const responseHelper = require('./response-helper.js');
 const dbUtil = require('../.././database/mongodb/db-util.js');
 const userController = require('./controller/user.controller.js');
+const adminController = require('./controller/admin.controller.js');
 
 // check validity of .env file
 function checkEnvFile() {
@@ -116,6 +117,7 @@ function runServer() {
     }));
 
     app.use(`${process.env.API_PREFIX}/users`, userController);
+    app.use(`${process.env.API_PREFIX}/admin`, adminController);
 
     app.use("*", (req,res) => {
         responseHelper.sendErrorResponse(res, 404, ['Not Found']);

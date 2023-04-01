@@ -1,7 +1,7 @@
 const validation = require('./validation.js');
 
-class User {
-    static #collectionName = "users";
+class Admin {
+    static #collectionName = "admins";
 
     static #loginInput = [
         'email',
@@ -102,4 +102,4 @@ class User {
     }
 }
 
-module.exports = User;
+module.exports = Admin;

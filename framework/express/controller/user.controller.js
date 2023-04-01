@@ -32,7 +32,7 @@ async function registerUser(req,res,next) {
     }
 }
 
-const registerMiddlewares = [
+const registerHandlers = [
     checkSchema(User.registerValidation),
     validateRegisterRequest,
     registerUser
@@ -63,7 +63,7 @@ async function loginUser(req,res,next) {
     }
 }
 
-const loginMiddlewares = [
+const loginHandlers = [
     checkSchema(User.loginValidation),
     validateLoginRequest,
     loginUser
@@ -81,7 +81,7 @@ async function logoutUser(req,res,next) {
     }
 }
 
-const logoutMiddlewares = [
+const logoutHandlers = [
     logoutUser
 ];
 
@@ -100,15 +100,15 @@ async function getMyProfile(req,res,next) {
     }
 }
 
-const getMyProfileMiddlewares = [
+const getMyProfileHandlers = [
     getMyProfile
 ];
 
 const router = express.Router();
 
-router.route('/register').post(...registerMiddlewares);
-router.route('/login').post(...loginMiddlewares);
-router.route('/logout').post(...logoutMiddlewares);
-router.route('/profile').get(...getMyProfileMiddlewares);
+router.route('/register').post(...registerHandlers);
+router.route('/login').post(...loginHandlers);
+router.route('/logout').post(...logoutHandlers);
+router.route('/profile').get(...getMyProfileHandlers);
 
 module.exports = router;

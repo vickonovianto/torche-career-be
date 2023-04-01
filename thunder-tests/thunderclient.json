@@ -8,12 +8,12 @@
     "method": "POST",
     "sortNum": 10000,
     "created": "2023-03-10T14:30:30.244Z",
-    "modified": "2023-03-21T15:44:17.443Z",
+    "modified": "2023-04-01T04:43:16.663Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"fullName\": \"budi\",\n  \"email\": \"budi@gmail.com\",\n  \"password\": \"Bb12345.\",\n  \"passwordRepeat\": \"Bb12345.\"\n}",
+      "raw": "{\n  \"fullName\": \"Budi\",\n  \"email\": \"budi@gmail.com\",\n  \"password\": \"Bb12345.\",\n  \"passwordRepeat\": \"Bb12345.\"\n}",
       "form": []
     },
     "tests": []
@@ -27,12 +27,12 @@
     "method": "POST",
     "sortNum": 20000,
     "created": "2023-03-17T17:19:17.301Z",
-    "modified": "2023-03-19T18:02:10.594Z",
+    "modified": "2023-04-01T04:35:00.041Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"email\": \"test@gmail.com\",\n  \"password\": \"12345678\"\n}",
+      "raw": "{\n  \"email\": \"budi@gmail.com\",\n  \"password\": \"Bb12345.\"\n}",
       "form": []
     },
     "tests": []
@@ -61,6 +61,72 @@
     "sortNum": 40000,
     "created": "2023-03-19T18:02:17.524Z",
     "modified": "2023-03-19T18:02:24.904Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "ed054637-c458-4911-8b81-e6b7d4b8d04d",
+    "colId": "16782e4b-1747-48a5-9234-a955c8450c7d",
+    "containerId": "9a3ee3ea-59a7-4dcc-a07d-7cff260b54a6",
+    "name": "Register",
+    "url": "http://{{HOST}}:{{PORT}}{{API_PREFIX}}/admin/register",
+    "method": "POST",
+    "sortNum": 10000,
+    "created": "2023-04-01T04:33:19.821Z",
+    "modified": "2023-04-01T04:35:58.710Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"fullName\": \"Charles\",\n  \"email\": \"charles@gmail.com\",\n  \"password\": \"Cc12345.\",\n  \"passwordRepeat\": \"Cc12345.\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "be6371ad-ea21-4b62-9205-35b2cd1d7681",
+    "colId": "16782e4b-1747-48a5-9234-a955c8450c7d",
+    "containerId": "9a3ee3ea-59a7-4dcc-a07d-7cff260b54a6",
+    "name": "Login",
+    "url": "http://{{HOST}}:{{PORT}}{{API_PREFIX}}/admin/login",
+    "method": "POST",
+    "sortNum": 20000,
+    "created": "2023-04-01T04:33:19.822Z",
+    "modified": "2023-04-01T04:36:01.963Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"email\": \"charles@gmail.com\",\n  \"password\": \"Cc12345.\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "b677a315-de8e-4ba3-b2b4-c151a561a004",
+    "colId": "16782e4b-1747-48a5-9234-a955c8450c7d",
+    "containerId": "9a3ee3ea-59a7-4dcc-a07d-7cff260b54a6",
+    "name": "Logout",
+    "url": "http://{{HOST}}:{{PORT}}{{API_PREFIX}}/admin/logout",
+    "method": "POST",
+    "sortNum": 30000,
+    "created": "2023-04-01T04:33:19.823Z",
+    "modified": "2023-04-01T04:36:05.431Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "e324f379-ff0f-4ede-ad68-b82e7a474568",
+    "colId": "16782e4b-1747-48a5-9234-a955c8450c7d",
+    "containerId": "9a3ee3ea-59a7-4dcc-a07d-7cff260b54a6",
+    "name": "Get Profile",
+    "url": "http://{{HOST}}:{{PORT}}{{API_PREFIX}}/admin/profile",
+    "method": "GET",
+    "sortNum": 40000,
+    "created": "2023-04-01T04:33:19.824Z",
+    "modified": "2023-04-01T04:36:09.288Z",
     "headers": [],
     "params": [],
     "tests": []
