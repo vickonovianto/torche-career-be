@@ -12,17 +12,31 @@ class Admin {
         'fullName',
         'email',
         'password',
+        'phoneNumber',
+        'companyName',
+        'companyDescription',
+        'companyIndustry',
+        'companyEmployeesCount',
+        'companyAddress',
+        'companyWebsite',
     ];
 
     static #profileOutput = [
         'fullName',
         'email',
+        'phoneNumber',
+        'companyName',
+        'companyDescription',
+        'companyIndustry',
+        'companyEmployeesCount',
+        'companyAddress',
+        'companyWebsite',
     ];
 
     // validation using "express-validator" npm package
 
     static #fullNameValidation =  {
-        ...validation.bodyStringInput,
+        ...validation.requiredBodyStringInput,
         isLength: {
             options: {
                 min: 1,
@@ -33,7 +47,7 @@ class Admin {
     };
 
     static #emailValidation =  {
-        ...validation.bodyStringInput,
+        ...validation.requiredBodyStringInput,
         isEmail: {
             errorMessage: 'invalid format',
         },
@@ -47,7 +61,7 @@ class Admin {
     };
 
     static #passwordValidation = {
-        ...validation.bodyStringInput,
+        ...validation.requiredBodyStringInput,
         isStrongPassword: {
             errorMessage: 'minimum 8 characters, with 1 uppercase, 1 lowercase, 1 number, and 1 symbol',
         },
@@ -63,11 +77,92 @@ class Admin {
         ...this.#passwordValidation,
     };
 
+    static #phoneNumberValidation = {
+        ...validation.requiredBodyStringInput,
+        isMobilePhone: {
+            locale: 'id-ID',
+            errorMessage: 'invalid format',
+        },
+    };
+
+    static #companyNameValidation = {
+        ...validation.requiredBodyStringInput,
+        isLength: {
+            options: {
+                min: 1,
+                max: 50,
+            },
+            errorMessage: 'minimum 1 character and maximum 50 characters',
+        },
+    };
+
+    static #companyDescriptionValidation = {
+        ...validation.requiredBodyStringInput,
+        isLength: {
+            options: {
+                min: 1,
+                max: 255,
+            },
+            errorMessage: 'minimum 1 character and maximum 255 characters',
+        },
+    };
+
+    static #companyIndustryValidation = {
+        ...validation.requiredBodyStringInput,
+        isLength: {
+            options: {
+                min: 1,
+                max: 50,
+            },
+            errorMessage: 'minimum 1 character and maximum 50 characters',
+        },
+    };
+
+    static #companyEmployeesCountValidation = {
+        ...validation.requiredBodyStringInput,
+        isLength: {
+            options: {
+                min: 1,
+                max: 50,
+            },
+            errorMessage: 'minimum 1 character and maximum 50 characters',
+        },
+    };
+
+    static #companyAddressValidation = {
+        ...validation.requiredBodyStringInput,
+        isLength: {
+            options: {
+                min: 1,
+                max: 255,
+            },
+            errorMessage: 'minimum 1 character and maximum 255 characters',
+        },
+    };
+
+    static #companyWebsiteValidation = {
+        ...validation.bodyStringInput,
+        isLength: {
+            options: {
+                min: 1,
+                max: 255,
+            },
+            errorMessage: 'minimum 1 character and maximum 255 characters',
+        },
+    };
+
     static #registerValidation = {
         fullName: this.#fullNameValidation,
         email: this.#emailValidation,
         password: this.#passwordValidation,
         passwordRepeat: this.#passwordRepeatValidation,
+        phoneNumber: this.#phoneNumberValidation,
+        companyName: this.#companyNameValidation,
+        companyDescription: this.#companyDescriptionValidation,
+        companyIndustry: this.#companyIndustryValidation,
+        companyEmployeesCount: this.#companyEmployeesCountValidation,
+        companyAddress: this.#companyAddressValidation,
+        companyWebsite: this.#companyWebsiteValidation,
     };
 
     static #loginValidation = {

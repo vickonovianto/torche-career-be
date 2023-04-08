@@ -19,6 +19,15 @@ async function getByEmail(email) {
     }
 }
 
+async function getByPhoneNumber(phoneNumber) {
+    try {
+        const adminCollection = dbUtil.getCollection(Admin.collectionName);
+        return await adminCollection.findOne({ phoneNumber: phoneNumber });
+    } catch (e) {
+        throw e;
+    }
+}
+
 async function getById(id) {
     try {
         const adminCollection = dbUtil.getCollection(Admin.collectionName);
@@ -29,4 +38,4 @@ async function getById(id) {
     }
 }
 
-module.exports = { create, getByEmail, getById };
+module.exports = { create, getByEmail, getById, getByPhoneNumber };

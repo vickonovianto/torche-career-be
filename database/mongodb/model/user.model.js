@@ -22,7 +22,7 @@ class User {
     // validation using "express-validator" npm package
 
     static #fullNameValidation =  {
-        ...validation.bodyStringInput,
+        ...validation.requiredBodyStringInput,
         isLength: {
             options: {
                 min: 1,
@@ -33,7 +33,7 @@ class User {
     };
 
     static #emailValidation =  {
-        ...validation.bodyStringInput,
+        ...validation.requiredBodyStringInput,
         isEmail: {
             errorMessage: 'invalid format',
         },
@@ -47,7 +47,7 @@ class User {
     };
 
     static #passwordValidation = {
-        ...validation.bodyStringInput,
+        ...validation.requiredBodyStringInput,
         isStrongPassword: {
             errorMessage: 'minimum 8 characters, with 1 uppercase, 1 lowercase, 1 number, and 1 symbol',
         },

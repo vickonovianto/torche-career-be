@@ -1,6 +1,8 @@
 const argon2 = require('argon2');
 
 const adminRepository = require('../database/mongodb/repository/admin.repository.js');
+const companyEmployeesCountRepository = require('../database/mongodb/repository/company-employees-count.repository.js');
+const companyIndustryRepository = require('../database/mongodb/repository/company-industry.repository.js');
 
 async function registerAdmin(admin) {
     try {
@@ -8,7 +10,20 @@ async function registerAdmin(admin) {
         admin.password = hash;
         const adminWithSameEmail = await adminRepository.getByEmail(admin.email);
         if (!adminWithSameEmail) {
-            return await adminRepository.create(admin);
+            const adminWithSamePhoneNumber = await adminRepository.getByPhoneNumber(admin.phoneNumber);
+            if (!adminWithSamePhoneNumber) {
+                const companyIndustry = await companyIndustryRepository.findByName(admin.companyIndustry);
+                if (!companyIndustry) {
+                    throw new Error('company industry not valid');
+                }
+                const companyEmployeesCount = await companyEmployeesCountRepository.findByCategory(admin.companyEmployeesCount);
+                if (!companyEmployeesCount) {
+                    throw new Error('company employees count not valid');
+                }
+                return await adminRepository.create(admin);
+            } else {
+                throw new Error('phone number already exists');
+            }
         } else {
             throw new Error('email already exists');
         }

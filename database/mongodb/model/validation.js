@@ -2,10 +2,13 @@ const bodyInput = {
     in: ['body'],
 };
 
-const stringInput = {
+const requiredInput = {
     exists: {
         errorMessage: 'field must exist',
     },
+};
+
+const stringInput = {
     isString: {
         errorMessage: 'field must be string',
     },
@@ -17,4 +20,10 @@ const bodyStringInput = {
     ...stringInput,
 };
 
-module.exports = { bodyInput, stringInput, bodyStringInput };
+const requiredBodyStringInput = {
+    ...bodyInput,
+    ...requiredInput,
+    ...stringInput,
+};
+
+module.exports = { bodyInput, stringInput, bodyStringInput, requiredBodyStringInput };
