@@ -15,15 +15,35 @@ const stringInput = {
     trim: true,
 };
 
+const notEmptyInput = {
+    notEmpty: {
+        errorMessage: 'field must not be empty',
+    },
+};
+
 const bodyStringInput = {
     ...bodyInput,
     ...stringInput,
 };
 
+const notEmptyBodyStringInput = {
+    ...bodyStringInput,
+    ...notEmptyInput,
+};  
+
 const requiredBodyStringInput = {
-    ...bodyInput,
     ...requiredInput,
-    ...stringInput,
+    ...bodyStringInput,
 };
 
-module.exports = { bodyInput, stringInput, bodyStringInput, requiredBodyStringInput };
+const requiredNotEmptyBodyStringInput = {
+    ...requiredBodyStringInput,
+    ...notEmptyInput,
+};
+
+module.exports = { bodyInput,
+    stringInput,
+    bodyStringInput,
+    notEmptyBodyStringInput,
+    requiredBodyStringInput,
+    requiredNotEmptyBodyStringInput };

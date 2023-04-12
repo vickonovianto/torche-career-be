@@ -36,18 +36,17 @@ class Admin {
     // validation using "express-validator" npm package
 
     static #fullNameValidation =  {
-        ...validation.requiredBodyStringInput,
+        ...validation.requiredNotEmptyBodyStringInput,
         isLength: {
             options: {
-                min: 1,
                 max: 50,
             },
-            errorMessage: 'minimum 1 character and maximum 50 characters',
+            errorMessage: 'maximum 50 characters',
         },
     };
 
     static #emailValidation =  {
-        ...validation.requiredBodyStringInput,
+        ...validation.requiredNotEmptyBodyStringInput,
         isEmail: {
             errorMessage: 'invalid format',
         },
@@ -61,7 +60,7 @@ class Admin {
     };
 
     static #passwordValidation = {
-        ...validation.requiredBodyStringInput,
+        ...validation.requiredNotEmptyBodyStringInput,
         isStrongPassword: {
             errorMessage: 'minimum 8 characters, with 1 uppercase, 1 lowercase, 1 number, and 1 symbol',
         },
@@ -78,7 +77,7 @@ class Admin {
     };
 
     static #phoneNumberValidation = {
-        ...validation.requiredBodyStringInput,
+        ...validation.requiredNotEmptyBodyStringInput,
         isMobilePhone: {
             locale: 'id-ID',
             errorMessage: 'invalid format',
@@ -86,68 +85,62 @@ class Admin {
     };
 
     static #companyNameValidation = {
-        ...validation.requiredBodyStringInput,
+        ...validation.requiredNotEmptyBodyStringInput,
         isLength: {
             options: {
-                min: 1,
                 max: 50,
             },
-            errorMessage: 'minimum 1 character and maximum 50 characters',
+            errorMessage: 'maximum 50 characters',
         },
     };
 
     static #companyDescriptionValidation = {
-        ...validation.requiredBodyStringInput,
+        ...validation.requiredNotEmptyBodyStringInput,
         isLength: {
             options: {
-                min: 1,
-                max: 255,
+                max: 500,
             },
-            errorMessage: 'minimum 1 character and maximum 255 characters',
+            errorMessage: 'maximum 500 characters',
         },
     };
 
     static #companyIndustryValidation = {
-        ...validation.requiredBodyStringInput,
+        ...validation.requiredNotEmptyBodyStringInput,
         isLength: {
             options: {
-                min: 1,
                 max: 50,
             },
-            errorMessage: 'minimum 1 character and maximum 50 characters',
+            errorMessage: 'maximum 50 characters',
         },
     };
 
     static #companyEmployeesCountValidation = {
-        ...validation.requiredBodyStringInput,
+        ...validation.requiredNotEmptyBodyStringInput,
         isLength: {
             options: {
-                min: 1,
                 max: 50,
             },
-            errorMessage: 'minimum 1 character and maximum 50 characters',
+            errorMessage: 'maximum 50 characters',
         },
     };
 
     static #companyAddressValidation = {
-        ...validation.requiredBodyStringInput,
+        ...validation.requiredNotEmptyBodyStringInput,
         isLength: {
             options: {
-                min: 1,
                 max: 255,
             },
-            errorMessage: 'minimum 1 character and maximum 255 characters',
+            errorMessage: 'maximum 255 characters',
         },
     };
 
     static #companyWebsiteValidation = {
-        ...validation.bodyStringInput,
+        ...validation.requiredBodyStringInput,
         isLength: {
             options: {
-                min: 1,
-                max: 255,
+                max: 50,
             },
-            errorMessage: 'minimum 1 character and maximum 255 characters',
+            errorMessage: 'maximum 50 characters',
         },
     };
 

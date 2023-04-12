@@ -33,18 +33,17 @@ class User {
     // validation using "express-validator" npm package
 
     static #fullNameValidation =  {
-        ...validation.requiredBodyStringInput,
+        ...validation.requiredNotEmptyBodyStringInput,
         isLength: {
             options: {
-                min: 1,
                 max: 50,
             },
-            errorMessage: 'cannot be empty and maximum 50 characters',
+            errorMessage: 'maximum 50 characters',
         },
     };
 
     static #emailValidation =  {
-        ...validation.requiredBodyStringInput,
+        ...validation.requiredNotEmptyBodyStringInput,
         isEmail: {
             errorMessage: 'invalid format',
         },
@@ -58,7 +57,7 @@ class User {
     };
 
     static #passwordValidation = {
-        ...validation.requiredBodyStringInput,
+        ...validation.requiredNotEmptyBodyStringInput,
         isStrongPassword: {
             errorMessage: 'minimum 8 characters, with 1 uppercase, 1 lowercase, 1 number, and 1 symbol',
         },
