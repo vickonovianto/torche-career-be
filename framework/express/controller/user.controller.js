@@ -85,23 +85,23 @@ const logoutHandlers = [
     logoutUser
 ];
 
-async function getMyProfile(req,res,next) {
+async function getBasicProfile(req,res,next) {
     try {
         if (req.session.userid) {
             const userResult = await userUsecase.getUserById(req.session.userid);
-            const user = shallowCopier.filterProperties(userResult, User.profileOutput);
-            responseHelper.sendSuccessResponse(res, "Get Profile Successful", user);
+            const user = shallowCopier.filterProperties(userResult, User.basicProfileOutput);
+            responseHelper.sendSuccessResponse(res, "Get Basic Profile Successful", user);
         } else {
-            responseHelper.sendErrorResponse(res, 401, [`Unable to get profile: User must be logged in`]); 
+            responseHelper.sendErrorResponse(res, 401, [`Unable to get basic profile: User must be logged in`]); 
         }
     } catch (e) {
         console.error(e.message);
-        responseHelper.sendErrorResponse(res, 400, [`Unable to get profile: ${e}`]);   
+        responseHelper.sendErrorResponse(res, 400, [`Unable to get basic profile: ${e}`]);   
     }
 }
 
-const getMyProfileHandlers = [
-    getMyProfile
+const getBasicProfileHandlers = [
+    getBasicProfile
 ];
 
 const router = express.Router();
@@ -109,6 +109,6 @@ const router = express.Router();
 router.route('/register').post(...registerHandlers);
 router.route('/login').post(...loginHandlers);
 router.route('/logout').post(...logoutHandlers);
-router.route('/profile').get(...getMyProfileHandlers);
+router.route('/basic-profile').get(...getBasicProfileHandlers);
 
 module.exports = router;

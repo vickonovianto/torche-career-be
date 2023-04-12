@@ -1,5 +1,6 @@
 const argon2 = require('argon2');
 
+const User = require('../database/mongodb/model/user.model.js');
 const userRepository = require('../database/mongodb/repository/user.repository.js');
 
 async function registerUser(user) {
@@ -8,7 +9,13 @@ async function registerUser(user) {
         user.password = hash;
         const userWithSameEmail = await userRepository.getByEmail(user.email);
         if (!userWithSameEmail) {
-            return await userRepository.create(user);
+            const userWithDefaultValues = {...user};
+            User.basicProfileOutput.forEach(property => {
+                if (!userWithDefaultValues.hasOwnProperty(property)) {
+                    userWithDefaultValues[property] = "";
+                }
+            });
+            return await userRepository.create(userWithDefaultValues);
         } else {
             throw new Error('email already exists');
         }

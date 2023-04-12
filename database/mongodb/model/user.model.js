@@ -14,9 +14,20 @@ class User {
         'password',
     ];
 
-    static #profileOutput = [
+    static #basicProfileOutput = [
         'fullName',
+        'jobTitle',
+        'language',
+        'dateOfBirth',
+        'gender',
+        'currentSalary',
+        'expectedSalary',
+        'description',
+        'phoneNumber',
         'email',
+        'country',
+        'city',
+        'address',
     ];
 
     // validation using "express-validator" npm package
@@ -28,7 +39,7 @@ class User {
                 min: 1,
                 max: 50,
             },
-            errorMessage: 'minimum 1 character and maximum 50 characters',
+            errorMessage: 'cannot be empty and maximum 50 characters',
         },
     };
 
@@ -89,8 +100,8 @@ class User {
         return this.#loginInput;
     }
 
-    static get profileOutput() {
-        return this.#profileOutput;
+    static get basicProfileOutput() {
+        return this.#basicProfileOutput;
     }
 
     static get registerValidation() {
