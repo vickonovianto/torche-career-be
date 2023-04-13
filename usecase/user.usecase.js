@@ -10,7 +10,7 @@ async function registerUser(user) {
         const userWithSameEmail = await userRepository.getByEmail(user.email);
         if (!userWithSameEmail) {
             const userWithDefaultValues = {...user};
-            User.basicProfileOutput.forEach(property => {
+            User.basicProfile.forEach(property => {
                 if (!userWithDefaultValues.hasOwnProperty(property)) {
                     userWithDefaultValues[property] = "";
                 }
@@ -51,4 +51,12 @@ async function getUserById(id) {
     }
 }
 
-module.exports = { registerUser, loginUser, getUserById };
+async function updateUserById(id, profile) {
+    try {
+        return await userRepository.updateProfileById(id, profile);
+    } catch (e) {
+        throw e;
+    }
+}
+
+module.exports = { registerUser, loginUser, getUserById, updateUserById };

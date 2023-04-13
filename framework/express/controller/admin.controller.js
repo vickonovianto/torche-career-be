@@ -4,22 +4,8 @@ const { checkSchema, validationResult } = require('express-validator');
 const Admin = require('../../../database/mongodb/model/admin.model.js');
 const adminUsecase = require('../../../usecase/admin.usecase.js');
 const responseHelper = require('../response-helper.js');
+const controllerHelper = require('../controller-helper.js');
 const shallowCopier = require('../../../util/shallow-copier.js');
-
-async function validateRegisterRequest(req,res,next) {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        responseHelper.sendErrorResponse(res, 400, errors.array());
-    } else {
-        const password = req.body.password;
-        const passwordRepeat = req.body.passwordRepeat;
-        if (password === passwordRepeat) {
-            next();
-        } else {
-            responseHelper.sendErrorResponse(res, 400, ['Unable to create admin: password must be equal to passwordRepeat']);
-        }
-    }
-}
 
 async function registerAdmin(req,res,next) {
     try {
@@ -34,18 +20,9 @@ async function registerAdmin(req,res,next) {
 
 const registerHandlers = [
     checkSchema(Admin.registerValidation),
-    validateRegisterRequest,
+    controllerHelper.validateRequest,
     registerAdmin
 ];
-
-async function validateLoginRequest(req,res,next) {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        responseHelper.sendErrorResponse(res, 400, errors.array());
-    } else {
-        next();
-    }
-}
 
 async function loginAdmin(req,res,next) {
     try {
@@ -65,7 +42,7 @@ async function loginAdmin(req,res,next) {
 
 const loginHandlers = [
     checkSchema(Admin.loginValidation),
-    validateLoginRequest,
+    controllerHelper.validateRequest,
     loginAdmin
 ];
 

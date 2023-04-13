@@ -4,22 +4,8 @@ const { checkSchema, validationResult } = require('express-validator');
 const User = require('../../../database/mongodb/model/user.model.js');
 const userUsecase = require('../../../usecase/user.usecase.js');
 const responseHelper = require('../response-helper.js');
+const controllerHelper = require('../controller-helper.js');
 const shallowCopier = require('../../../util/shallow-copier.js');
-
-async function validateRegisterRequest(req,res,next) {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        responseHelper.sendErrorResponse(res, 400, errors.array());
-    } else {
-        const password = req.body.password;
-        const passwordRepeat = req.body.passwordRepeat;
-        if (password === passwordRepeat) {
-            next();
-        } else {
-            responseHelper.sendErrorResponse(res, 400, ['Unable to create user: password must be equal to passwordRepeat']);
-        }
-    }
-}
 
 async function registerUser(req,res,next) {
     try {
@@ -34,18 +20,9 @@ async function registerUser(req,res,next) {
 
 const registerHandlers = [
     checkSchema(User.registerValidation),
-    validateRegisterRequest,
+    controllerHelper.validateRequest,
     registerUser
 ];
-
-async function validateLoginRequest(req,res,next) {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        responseHelper.sendErrorResponse(res, 400, errors.array());
-    } else {
-        next();
-    }
-}
 
 async function loginUser(req,res,next) {
     try {
@@ -65,7 +42,7 @@ async function loginUser(req,res,next) {
 
 const loginHandlers = [
     checkSchema(User.loginValidation),
-    validateLoginRequest,
+    controllerHelper.validateRequest,
     loginUser
 ];
 
@@ -89,7 +66,7 @@ async function getBasicProfile(req,res,next) {
     try {
         if (req.session.userid) {
             const userResult = await userUsecase.getUserById(req.session.userid);
-            const user = shallowCopier.filterProperties(userResult, User.basicProfileOutput);
+            const user = shallowCopier.filterProperties(userResult, User.basicProfile);
             responseHelper.sendSuccessResponse(res, "Get Basic Profile Successful", user);
         } else {
             responseHelper.sendErrorResponse(res, 401, [`Unable to get basic profile: User must be logged in`]); 
@@ -104,11 +81,33 @@ const getBasicProfileHandlers = [
     getBasicProfile
 ];
 
+async function updateBasicProfile(req,res,next) {
+    try {
+        if (req.session.userid) {
+            const profile = shallowCopier.filterProperties(req.body, User.basicProfile);
+            await userUsecase.updateUserById(req.session.userid, profile);
+            responseHelper.sendSuccessResponse(res, "Update Basic Profile Successful", {});
+        } else {
+            responseHelper.sendErrorResponse(res, 401, [`Unable to get update profile: User must be logged in`]); 
+        }
+    } catch (e) {
+        console.error(e.message);
+        responseHelper.sendErrorResponse(res, 400, [`Unable to update basic profile: ${e}`]);   
+    }
+}
+
+const updateBasicProfileHandlers = [
+    checkSchema(User.updateProfileValidation),
+    controllerHelper.validateRequest,
+    updateBasicProfile
+];
+
 const router = express.Router();
 
 router.route('/register').post(...registerHandlers);
 router.route('/login').post(...loginHandlers);
 router.route('/logout').post(...logoutHandlers);
 router.route('/basic-profile').get(...getBasicProfileHandlers);
+router.route('/basic-profile').put(...updateBasicProfileHandlers);
 
 module.exports = router;

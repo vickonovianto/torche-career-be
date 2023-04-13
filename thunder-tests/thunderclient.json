@@ -130,5 +130,24 @@
     "headers": [],
     "params": [],
     "tests": []
+  },
+  {
+    "_id": "bf9d4d73-97f9-42be-ad65-7ad380aaba61",
+    "colId": "16782e4b-1747-48a5-9234-a955c8450c7d",
+    "containerId": "8f680de3-6d8b-414c-a6e3-2361e512d728",
+    "name": "Update Basic Profile",
+    "url": "http://{{HOST}}:{{PORT}}{{API_PREFIX}}/users/basic-profile",
+    "method": "PUT",
+    "sortNum": 50000,
+    "created": "2023-04-13T03:34:11.832Z",
+    "modified": "2023-04-13T03:59:51.216Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"fullName\": \"Budi\",\n  \"jobTitle\": \"Web Developer\",\n  \"language\" : \"Indonesian\",\n  \"dateOfBirth\": \"1995-02-01\",\n  \"gender\": \"M\",\n  \"currentSalary\": \"1000000\",\n  \"expectedSalary\": \"2000000\",\n  \"description\": \"A passionate web developer\",\n  \"phoneNumber\": \"+6281234567890\",\n  \"email\": \"budi@gmail.com\",\n  \"country\": \"Indonesia\",\n  \"city\": \"Jakarta\",\n  \"address\": \"Jalan manggis no. 1\"\n}",
+      "form": []
+    },
+    "tests": []
   }
 ]

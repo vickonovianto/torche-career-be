@@ -74,6 +74,12 @@ class Admin {
 
     static #passwordRepeatValidation = {
         ...this.#passwordValidation,
+        custom: {
+            options: (value, { req }) => {
+                return value === req.body.password;
+            },
+            errorMessage: 'must be the same as password',
+        },
     };
 
     static #phoneNumberValidation = {
