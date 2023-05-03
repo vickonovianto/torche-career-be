@@ -168,5 +168,24 @@
       "form": []
     },
     "tests": []
+  },
+  {
+    "_id": "7c118077-c814-457a-8055-713e2cedb03d",
+    "colId": "16782e4b-1747-48a5-9234-a955c8450c7d",
+    "containerId": "94167eda-bfe5-4565-be50-526ed40646f0",
+    "name": "Create",
+    "url": "http://{{HOST}}:{{PORT}}{{API_PREFIX}}/jobs/create",
+    "method": "POST",
+    "sortNum": 10000,
+    "created": "2023-05-03T10:30:50.142Z",
+    "modified": "2023-05-03T10:43:13.378Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"jobTitle\": \"Backend Programmer\",\n  \"jobType\": \"Internship\",\n  \"jobIndustry\": \"IT\",\n  \"jobLocationProvince\": \"Jawa Barat\",\n  \"jobLocationCity\": \"Jakarta Barat\",\n  \"jobDescription\": \"Mengembangkan backend dari website utama Torche\",\n  \"jobApplicationDeadline\": \"2023-05-31\",\n  \"jobOpenStatus\": \"True\",\n  \"jobWfoStatus\": \"WFH\",\n  \"jobSalary\": \"1000000\",\n  \"jobLastUpdated\": \"2023-04-01\"\n}",
+      "form": []
+    },
+    "tests": []
   }
 ]
