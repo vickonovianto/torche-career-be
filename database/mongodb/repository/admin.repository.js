@@ -38,4 +38,17 @@ async function getById(id) {
     }
 }
 
-module.exports = { create, getByEmail, getById, getByPhoneNumber };
+async function updateProfileById(id, profile) {
+    try {
+        const adminCollection = dbUtil.getCollection(Admin.collectionName);
+        const ObjectID = dbUtil.getObjectId();
+        const objectId = new ObjectID(id);
+        const filter = { _id: objectId };
+        const update = { $set: profile };
+        return await adminCollection.updateOne(filter, update);
+    } catch (e) {
+        throw e;
+    }
+}
+
+module.exports = { create, getByEmail, getById, getByPhoneNumber, updateProfileById };

@@ -66,7 +66,7 @@ async function getMyProfile(req,res,next) {
     try {
         if (req.session.adminid) {
             const adminResult = await adminUsecase.getAdminById(req.session.adminid);
-            const admin = shallowCopier.filterProperties(adminResult, Admin.profileOutput);
+            const admin = shallowCopier.filterProperties(adminResult, Admin.basicProfile);
             responseHelper.sendSuccessResponse(res, "Get Profile Successful", admin);
         } else {
             responseHelper.sendErrorResponse(res, 401, [`Unable to get profile: Admin must be logged in`]); 
@@ -81,11 +81,33 @@ const getMyProfileHandlers = [
     getMyProfile
 ];
 
+async function updateBasicProfile(req,res,next) {
+    try {
+        if (req.session.adminid) {
+            const profile = shallowCopier.filterProperties(req.body, Admin.basicProfile);
+            await adminUsecase.updateAdminById(req.session.adminid, profile);
+            responseHelper.sendSuccessResponse(res, "Update Admin Profile Successful", {});
+        } else {
+            responseHelper.sendErrorResponse(res, 401, [`Unable to update profile: Admin must be logged in`]); 
+        }
+    } catch (e) {
+        console.error(e.message);
+        responseHelper.sendErrorResponse(res, 400, [`Unable to update profile: ${e}`]);   
+    }
+}
+
+const updateBasicProfileHandlers = [
+    checkSchema(Admin.updateProfileValidation),
+    controllerHelper.validateRequest,
+    updateBasicProfile
+];
+
 const router = express.Router();
 
 router.route('/register').post(...registerHandlers);
 router.route('/login').post(...loginHandlers);
 router.route('/logout').post(...logoutHandlers);
 router.route('/profile').get(...getMyProfileHandlers);
+router.route('/profile').put(...updateBasicProfileHandlers);
 
 module.exports = router;

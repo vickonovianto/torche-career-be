@@ -149,5 +149,24 @@
       "form": []
     },
     "tests": []
+  },
+  {
+    "_id": "8ac2d121-f194-4442-9952-c648c14b6f61",
+    "colId": "16782e4b-1747-48a5-9234-a955c8450c7d",
+    "containerId": "9a3ee3ea-59a7-4dcc-a07d-7cff260b54a6",
+    "name": "Update Basic Profile",
+    "url": "http://{{HOST}}:{{PORT}}{{API_PREFIX}}/admin/profile",
+    "method": "PUT",
+    "sortNum": 50000,
+    "created": "2023-05-03T09:33:50.379Z",
+    "modified": "2023-05-03T09:36:06.364Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"fullName\": \"Charles Budiman\",\n  \"email\": \"charles@gmail.com\",\n  \"phoneNumber\": \"+6281234567890\",\n  \"companyName\": \"Torche Education\",\n  \"companyDescription\": \"Torche Education merupakan startup e-learning yang berfokus pada topik engineering, menyediakan tutor belajar, pelatihan, dan seminar/webinar tentang teknik proses, teknik kimia, teknik bioproses, dll.\",\n  \"companyIndustry\": \"Pendidikan\",\n  \"companyEmployeesCount\": \"100-500\",\n  \"companyAddress\": \"Jl. Kelapa Lilin Utara XIV Blok DG 8 No. 27 Kab. Tangerang, Banten 15810 Indonesia\",\n  \"companyWebsite\": \"https://torche.app/careers/\"\n}",
+      "form": []
+    },
+    "tests": []
   }
 ]

@@ -59,4 +59,20 @@ async function getAdminById(id) {
     }
 }
 
-module.exports = { registerAdmin, loginAdmin, getAdminById };
+async function updateAdminById(id, profile) {
+    try {
+        const companyIndustry = await companyIndustryRepository.findByName(profile.companyIndustry);
+        if (!companyIndustry) {
+            throw new Error('company industry not valid');
+        }
+        const companyEmployeesCount = await companyEmployeesCountRepository.findByCategory(profile.companyEmployeesCount);
+        if (!companyEmployeesCount) {
+            throw new Error('company employees count not valid');
+        }
+        return await adminRepository.updateProfileById(id, profile);
+    } catch (e) {
+        throw e;
+    }
+}
+
+module.exports = { registerAdmin, loginAdmin, getAdminById, updateAdminById };

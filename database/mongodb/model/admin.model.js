@@ -21,7 +21,7 @@ class Admin {
         'companyWebsite',
     ];
 
-    static #profileOutput = [
+    static #basicProfile = [
         'fullName',
         'email',
         'phoneNumber',
@@ -169,6 +169,18 @@ class Admin {
         password: this.#passwordValidation,
     };
 
+    static #updateProfileValidation = {
+        fullName: this.#fullNameValidation,
+        email: this.#emailValidation,
+        phoneNumber: this.#phoneNumberValidation,
+        companyName: this.#companyNameValidation,
+        companyDescription: this.#companyDescriptionValidation,
+        companyIndustry: this.#companyIndustryValidation,
+        companyEmployeesCount: this.#companyEmployeesCountValidation,
+        companyAddress: this.#companyAddressValidation,
+        companyWebsite: this.#companyWebsiteValidation,
+    };
+
     constructor() {}
 
     static get collectionName() {
@@ -183,8 +195,8 @@ class Admin {
         return this.#loginInput;
     }
 
-    static get profileOutput() {
-        return this.#profileOutput;
+    static get basicProfile() {
+        return this.#basicProfile;
     }
 
     static get registerValidation() {
@@ -193,6 +205,10 @@ class Admin {
 
     static get loginValidation() {
         return this.#loginValidation;
+    }
+
+    static get updateProfileValidation() {
+        return this.#updateProfileValidation;
     }
 }
 

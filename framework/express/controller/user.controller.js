@@ -88,7 +88,7 @@ async function updateBasicProfile(req,res,next) {
             await userUsecase.updateUserById(req.session.userid, profile);
             responseHelper.sendSuccessResponse(res, "Update Basic Profile Successful", {});
         } else {
-            responseHelper.sendErrorResponse(res, 401, [`Unable to get update profile: User must be logged in`]); 
+            responseHelper.sendErrorResponse(res, 401, [`Unable to update profile: User must be logged in`]); 
         }
     } catch (e) {
         console.error(e.message);
