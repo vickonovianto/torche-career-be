@@ -18,6 +18,22 @@ class Job {
         'jobLastUpdated'
     ];
 
+    static #viewOutput = [
+        'jobAdminId',
+        'jobTitle',
+        'jobType',
+        'jobIndustry',
+        'jobLocationProvince',
+        'jobLocationCity',
+        'jobLocationDistrict',
+        'jobDescription',
+        'jobApplicationDeadline',
+        'jobOpenStatus',
+        'jobWfoStatus',
+        'jobSalary',
+        'jobLastUpdated'
+    ];
+
     // validation using "express-validator" npm package
 
     static #jobTitleValidation =  {
@@ -166,6 +182,10 @@ class Job {
 
     static get createValidation() {
         return this.#createValidation;
+    }
+
+    static get viewOutput() {
+        return this.#viewOutput;
     }
 }
 

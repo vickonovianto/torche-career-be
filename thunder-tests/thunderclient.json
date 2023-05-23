@@ -187,5 +187,19 @@
       "form": []
     },
     "tests": []
+  },
+  {
+    "_id": "2faeeebe-8dd9-4fa5-9fa1-28a1570969f8",
+    "colId": "16782e4b-1747-48a5-9234-a955c8450c7d",
+    "containerId": "94167eda-bfe5-4565-be50-526ed40646f0",
+    "name": "Get List of Jobs",
+    "url": "http://{{HOST}}:{{PORT}}{{API_PREFIX}}/jobs/",
+    "method": "GET",
+    "sortNum": 20000,
+    "created": "2023-05-23T07:58:20.166Z",
+    "modified": "2023-05-23T07:58:42.515Z",
+    "headers": [],
+    "params": [],
+    "tests": []
   }
 ]

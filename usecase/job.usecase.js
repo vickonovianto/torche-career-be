@@ -8,4 +8,12 @@ async function createJob(job) {
     }
 }
 
-module.exports = { createJob };
+async function getJobs() {
+    try {
+        return await jobRepository.fetch();
+    } catch (e) {
+        throw e;
+    }
+}
+
+module.exports = { createJob, getJobs };

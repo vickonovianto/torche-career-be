@@ -10,4 +10,13 @@ async function create(job) {
     }
 }
 
-module.exports = { create };
+async function fetch() {
+    try {
+        const jobCollection = dbUtil.getCollection(Job.collectionName);
+        return await jobCollection.find({}).toArray();
+    } catch (e) {
+        throw e;
+    }
+}
+
+module.exports = { create, fetch };

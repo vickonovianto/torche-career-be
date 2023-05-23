@@ -29,8 +29,28 @@ const createHandlers = [
     createJob
 ];
 
+async function getListOfJob(req,res,next) {
+    try {
+        const jobsResult = await jobUsecase.getJobs();
+        const filteredJobs = [];
+        for (const job of jobsResult) {
+            const filteredJob = shallowCopier.filterProperties(job, Job.viewOutput);
+            filteredJobs.push(filteredJob);
+        }
+        responseHelper.sendSuccessResponse(res, "Get List of Job Successful", filteredJobs);
+    } catch (e) {
+        console.error(e.message);
+        responseHelper.sendErrorResponse(res, 400, [`Unable to get list of jobs: ${e}`]);   
+    }
+}
+
+const getListOfJobHandlers = [
+    getListOfJob
+];
+
 const router = express.Router();
 
 router.route('/create').post(...createHandlers);
+router.route('/').get(...getListOfJobHandlers);
 
 module.exports = router;
