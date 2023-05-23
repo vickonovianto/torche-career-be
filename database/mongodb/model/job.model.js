@@ -15,7 +15,20 @@ class Job {
         'jobOpenStatus',
         'jobWfoStatus',
         'jobSalary',
-        'jobLastUpdated'
+    ];
+
+    static #updateInput = [
+        'jobTitle',
+        'jobType',
+        'jobIndustry',
+        'jobLocationProvince',
+        'jobLocationCity',
+        'jobLocationDistrict',
+        'jobDescription',
+        'jobApplicationDeadline',
+        'jobOpenStatus',
+        'jobWfoStatus',
+        'jobSalary',
     ];
 
     static #viewOutput = [
@@ -187,6 +200,10 @@ class Job {
 
     static get viewOutput() {
         return this.#viewOutput;
+    }
+
+    static get updateInput() {
+        return this.#updateInput;
     }
 }
 

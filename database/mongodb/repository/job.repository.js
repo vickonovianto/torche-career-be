@@ -4,6 +4,7 @@ const Job = require('../model/job.model.js');
 async function create(job) {
     try {
         const jobCollection = dbUtil.getCollection(Job.collectionName);
+        job.jobLastUpdated = new Date().toISOString();
         return await jobCollection.insertOne(job);
     } catch (e) {
         throw e;
@@ -30,4 +31,18 @@ async function find(id) {
     }
 }
 
-module.exports = { create, fetch, find };
+async function update(id, newJob) {
+    try {
+        const jobCollection = dbUtil.getCollection(Job.collectionName);
+        const ObjectID = dbUtil.getObjectId();
+        const objectId = new ObjectID(id);
+        newJob.jobLastUpdated = new Date().toISOString();
+        const filter = { _id: objectId };
+        const update = { $set: newJob };
+        return await jobCollection.updateOne(filter, update);
+    } catch (e) {
+        throw e;
+    }
+}
+
+module.exports = { create, fetch, find, update };

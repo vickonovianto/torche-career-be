@@ -178,12 +178,12 @@
     "method": "POST",
     "sortNum": 10000,
     "created": "2023-05-03T10:30:50.142Z",
-    "modified": "2023-05-03T10:43:13.378Z",
+    "modified": "2023-05-23T08:37:13.004Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"jobTitle\": \"Backend Programmer\",\n  \"jobType\": \"Internship\",\n  \"jobIndustry\": \"IT\",\n  \"jobLocationProvince\": \"Jawa Barat\",\n  \"jobLocationCity\": \"Jakarta Barat\",\n  \"jobDescription\": \"Mengembangkan backend dari website utama Torche\",\n  \"jobApplicationDeadline\": \"2023-05-31\",\n  \"jobOpenStatus\": \"True\",\n  \"jobWfoStatus\": \"WFH\",\n  \"jobSalary\": \"1000000\",\n  \"jobLastUpdated\": \"2023-04-01\"\n}",
+      "raw": "{\n  \"jobTitle\": \"Backend Programmer\",\n  \"jobType\": \"Internship\",\n  \"jobIndustry\": \"IT\",\n  \"jobLocationProvince\": \"Jawa Barat\",\n  \"jobLocationCity\": \"Jakarta Barat\",\n  \"jobDescription\": \"Mengembangkan backend dari website utama Torche\",\n  \"jobApplicationDeadline\": \"2023-05-31\",\n  \"jobOpenStatus\": \"True\",\n  \"jobWfoStatus\": \"WFH\",\n  \"jobSalary\": \"1000000\"\n}",
       "form": []
     },
     "tests": []
@@ -214,6 +214,25 @@
     "modified": "2023-05-23T08:13:11.801Z",
     "headers": [],
     "params": [],
+    "tests": []
+  },
+  {
+    "_id": "1d5bd42e-443c-4a41-a611-7c1da53494ad",
+    "colId": "16782e4b-1747-48a5-9234-a955c8450c7d",
+    "containerId": "94167eda-bfe5-4565-be50-526ed40646f0",
+    "name": "Update Job",
+    "url": "http://{{HOST}}:{{PORT}}{{API_PREFIX}}/jobs/64523b0a238aa95c53014fa0",
+    "method": "PUT",
+    "sortNum": 15000,
+    "created": "2023-05-23T08:29:58.319Z",
+    "modified": "2023-05-23T08:37:18.145Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"jobTitle\": \"Backend Programmer\",\n  \"jobType\": \"Internship\",\n  \"jobIndustry\": \"IT\",\n  \"jobLocationProvince\": \"Jawa Barat\",\n  \"jobLocationCity\": \"Jakarta Barat\",\n  \"jobDescription\": \"Mengembangkan backend dari website utama Torche\",\n  \"jobApplicationDeadline\": \"2023-06-31\",\n  \"jobOpenStatus\": \"True\",\n  \"jobWfoStatus\": \"WFH\",\n  \"jobSalary\": \"1000000\"\n}",
+      "form": []
+    },
     "tests": []
   }
 ]

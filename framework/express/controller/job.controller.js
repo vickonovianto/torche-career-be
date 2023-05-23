@@ -64,10 +64,32 @@ const getJobDetailHandlers = [
     getJobDetail
 ];
 
+async function updateJob(req,res,next) {
+    try {
+        if (req.session.adminid) {
+            const jobId = req.params.id; 
+            const newJob = shallowCopier.filterProperties(req.body, Job.updateInput);
+            await jobUsecase.updateJob(jobId, newJob, req.session.adminid);
+            responseHelper.sendSuccessResponse(res, "Update Job Successful", {});
+        } else {
+            responseHelper.sendErrorResponse(res, 401, [`Unable to update job: Only logged in admin can update job`]); 
+        }
+    } catch (e) {
+        console.error(e.message);
+        responseHelper.sendErrorResponse(res, 400, [`Unable to update job: ${e}`]);   
+    }
+}
+
+const updateJobHandlers = [
+    updateJob
+];
+
+
 const router = express.Router();
 
 router.route('/create').post(...createHandlers);
 router.route('/').get(...getListOfJobHandlers);
 router.route('/:id').get(...getJobDetailHandlers);
+router.route('/:id').put(...updateJobHandlers);
 
 module.exports = router;

@@ -24,4 +24,17 @@ async function getJobDetail(jobId) {
     }
 }
 
-module.exports = { createJob, getJobs, getJobDetail };
+async function updateJob(jobId, newJob, jobAdminId) {
+    try {
+        const job = await jobRepository.find(jobId);
+        if (job.jobAdminId === jobAdminId) {
+            return await jobRepository.update(jobId, newJob);
+        } else {
+            throw new Error('only admin can update the job');
+        }
+    } catch (e) {
+        throw e;
+    }
+}
+
+module.exports = { createJob, getJobs, getJobDetail, updateJob };
