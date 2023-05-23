@@ -19,4 +19,15 @@ async function fetch() {
     }
 }
 
-module.exports = { create, fetch };
+async function find(id) {
+    try {
+        const jobCollection = dbUtil.getCollection(Job.collectionName);
+        const ObjectID = dbUtil.getObjectId();
+        const objectId = new ObjectID(id);
+        return await jobCollection.findOne({ _id: objectId });
+    } catch (e) {
+        throw e;
+    }
+}
+
+module.exports = { create, fetch, find };

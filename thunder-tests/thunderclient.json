@@ -201,5 +201,19 @@
     "headers": [],
     "params": [],
     "tests": []
+  },
+  {
+    "_id": "80164b04-2a46-4b52-98b7-20aed1223b19",
+    "colId": "16782e4b-1747-48a5-9234-a955c8450c7d",
+    "containerId": "94167eda-bfe5-4565-be50-526ed40646f0",
+    "name": "Get Job Detail",
+    "url": "http://{{HOST}}:{{PORT}}{{API_PREFIX}}/jobs/64523b0a238aa95c53014fa0",
+    "method": "GET",
+    "sortNum": 30000,
+    "created": "2023-05-23T08:09:21.897Z",
+    "modified": "2023-05-23T08:13:11.801Z",
+    "headers": [],
+    "params": [],
+    "tests": []
   }
 ]

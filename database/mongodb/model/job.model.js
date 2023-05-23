@@ -19,6 +19,7 @@ class Job {
     ];
 
     static #viewOutput = [
+        '_id',
         'jobAdminId',
         'jobTitle',
         'jobType',
