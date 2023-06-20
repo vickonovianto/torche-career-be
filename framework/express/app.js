@@ -58,21 +58,21 @@ function runServer() {
 
     // set up cors middleware
     const corsOptions = {
-        origin: function(origin, callback) {
-            if (process.env.NODE_ENV === "development") {
-                if (origin === process.env.WHITELISTED_DOMAIN_CORS || !origin) {
-                    callback(null, true);
-                } else {
-                    callback(new Error('Not allowed by CORS'));
-                }
-            } else if (process.env.NODE_ENV === "production") {
-                if (origin === process.env.WHITELISTED_DOMAIN_CORS) {
-                    callback(null, true);
-                } else {
-                    callback(new Error('Not allowed by CORS'));
-                }
-            }
-        },
+        // origin: function(origin, callback) {
+        //     if (process.env.NODE_ENV === "development") {
+        //         if (origin === process.env.WHITELISTED_DOMAIN_CORS || !origin) {
+        //             callback(null, true);
+        //         } else {
+        //             callback(new Error('Not allowed by CORS'));
+        //         }
+        //     } else if (process.env.NODE_ENV === "production") {
+        //         if (origin === process.env.WHITELISTED_DOMAIN_CORS) {
+        //             callback(null, true);
+        //         } else {
+        //             callback(new Error('Not allowed by CORS'));
+        //         }
+        //     }
+        // },
         credentials: true,
     };
 
@@ -117,6 +117,10 @@ function runServer() {
         }),
     }));
 
+  app.get('/', (req, res) => {
+  res.send('Hello Express app!')
+});
+
     app.use(`${process.env.API_PREFIX}/users`, userController);
     app.use(`${process.env.API_PREFIX}/admin`, adminController);
     app.use(`${process.env.API_PREFIX}/jobs`, jobController);
@@ -127,7 +131,10 @@ function runServer() {
 
     const port = process.env.PORT;
     const host = process.env.HOST;
-    app.listen(port, host, () => {
+    // app.listen(port, host, () => {
+    //     console.log(`⚡️[server]: Server is running at ${host}:${port}`);
+    // });
+  app.listen(3000, () => {
         console.log(`⚡️[server]: Server is running at ${host}:${port}`);
     });
 }
