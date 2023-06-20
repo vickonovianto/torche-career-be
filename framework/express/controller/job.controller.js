@@ -81,6 +81,8 @@ async function updateJob(req,res,next) {
 }
 
 const updateJobHandlers = [
+    checkSchema(Job.createValidation),
+    controllerHelper.validateRequest,
     updateJob
 ];
 

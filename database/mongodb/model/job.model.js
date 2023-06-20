@@ -160,16 +160,6 @@ class Job {
         },
     };
 
-    static #jobLastUpdatedValidation = {
-        ...validation.requiredBodyStringInput,
-        isLength: {
-            options: {
-                max: 50,
-            },
-            errorMessage: 'maximum 50 characters',
-        },
-    };
-
     static #createValidation = {
         jobTitle: this.#jobTitleValidation,
         jobType: this.#jobTypeValidation,
@@ -181,7 +171,6 @@ class Job {
         jobOpenStatus: this.#jobOpenStatusValidation,
         jobWfoStatus: this.#jobWfoStatusValidation,
         jobSalary: this.#jobSalaryValidation,
-        jobLastUpdated: this.#jobLastUpdatedValidation,
     };
 
     constructor() {}
